@@ -3,7 +3,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 In the project directory:
 
 Run to install required react dependencies- 
-### 'npm install' 
+### npm install 
 
 To start the react app- 
 ### `npm start`
