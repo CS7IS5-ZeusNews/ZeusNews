@@ -7,16 +7,60 @@ export const UserProvider = ({ children }) => {
     const [currentUser, setCurrentUser] = useState(null); // To hold the currently logged-in user
 
     const addUser = (user) => {
-        setUsers(prevUsers => [...prevUsers, user]);
+        const newUser = { ...user, readArticles: [], likedArticles: [], dislikedArticles: [] };
+        setUsers(prevUsers => [...prevUsers, newUser]);
+        setCurrentUser(newUser);
     };
 
     const loginUser = (username) => {
         const user = users.find(user => user.username === username);
         setCurrentUser(user);
     };
+    
+const updateUserInteractions = (username, interactionType, articleId) => {
+    setUsers(users =>
+        users.map(user => {
+            if (user.username === username) {
+                const isArticleLiked = user.likedArticles.includes(articleId);
+                const isArticleDisliked = user.dislikedArticles.includes(articleId);
+
+                let updatedLikedArticles = [...user.likedArticles];
+                let updatedDislikedArticles = [...user.dislikedArticles];
+
+                if (interactionType === 'likedArticles') {
+                    if (isArticleLiked) {
+                        updatedLikedArticles = updatedLikedArticles.filter(id => id !== articleId);
+                        console.log(`${username} unclicked the Like button`); 
+                    } else {
+                        updatedLikedArticles.push(articleId);
+                        updatedDislikedArticles = updatedDislikedArticles.filter(id => id !== articleId);
+                        console.log(`${username} liked the article`); 
+                    }
+                } else if (interactionType === 'dislikedArticles') {
+                    if (isArticleDisliked) {
+                        updatedDislikedArticles = updatedDislikedArticles.filter(id => id !== articleId);
+                        console.log(`${username} unclicked the Dislike button`); 
+                    } else {
+                        updatedDislikedArticles.push(articleId);
+                        updatedLikedArticles = updatedLikedArticles.filter(id => id !== articleId);
+                        console.log(`${username} disliked the article`); 
+
+                    }
+                }
+
+                return {
+                    ...user,
+                    likedArticles: updatedLikedArticles,
+                    dislikedArticles: updatedDislikedArticles,
+                };
+            }
+            return user;
+        }),
+    );
+};
 
     return (
-        <UserContext.Provider value={{ users, addUser, currentUser, loginUser }}>
+        <UserContext.Provider value={{ users, addUser, updateUserInteractions, currentUser, loginUser }}>
             {children}
         </UserContext.Provider>
     );
