@@ -115,8 +115,7 @@ code {
   gap: 10px; 
 }
 
-.like-button,
-.dislike-button {
+.like-button {
   border: none;
   color: white; 
   padding: 10px 20px; 
@@ -129,22 +128,18 @@ code {
   background-color: #0d6efd; 
 }
 
-.dislike-button {
-  background-color: #dc3545; 
-}
-
 /*icon sizes */
 .fa-thumbs-up,
 .fa-thumbs-down {
   font-size: 1.2rem;
 }
 
-.like-button.active, .dislike-button.active {
+.like-button.active {
   background-color: #007bff; 
   color: white;
 }
 
-.like-button, .dislike-button {
+.like-button {
   /* Initial button styling */
   border: 1px solid #ddd;
   background-color: #f8f9fa;

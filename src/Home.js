@@ -16,7 +16,7 @@ const HomePage = () => {
   const { users, updateUserInteractions, currentUser } = useContext(UserContext);
 
   const handleArticleClick = (articleId) => {
-      updateUserInteractions(currentUser.username, 'readArticles', articleId);
+      updateUserInteractions(currentUser.username, 'readArticle', articleId);
       navigate(`/article/${articleId}`);
   };
 
@@ -53,6 +53,7 @@ const HomePage = () => {
 
       <div className="article-list">
         {articles.map((article, index) => (
+          
           <div 
           key={article.source.id} 
             className="article-card" 
